@@ -25,12 +25,12 @@ df['# of Cases'] = df.groupby('Opened Date')['Opened Date'].transform('count')
 df.drop_duplicates('Opened Date', inplace=True)
 
 # Let's see what it looks like and plot it
-df.plot(x='Opened Date', y='# of Cases')
+df.plot(x='Opened Date', y='# of Cases', figsize=(48, 8))
+# Save it
+plt.savefig('output.png')
 
 # Gotta show it in the IDE!
 plt.show()
-# Save it
-plt.savefig('output.png')
 
 pd.set_option('display.max_rows', None)
 print(df)
