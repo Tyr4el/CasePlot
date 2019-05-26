@@ -9,6 +9,13 @@ df = pd.read_csv('Opened_Cases_RR_AllTime.csv',   # file to read
 
 # Sort them by date
 df.sort_values(by=['Opened Date'], inplace=True, ascending=True)
+
+# Get the start date of the data
+start_date = min(df['Opened Date'])
+
+# Calculate the days since the start date for each row
+df["Days Since Start Date"] = df['Opened Date'] - start_date
+
 # Convert the Opened Date to a Day of Week
 df['Day of Week'] = df['Opened Date'].dt.dayofweek
 df = df[df['Day of Week'] <= 4]
