@@ -3,20 +3,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Read the CSV
-df = pd.read_csv('Opened_Cases_RR_AllTime.csv')
-
-# Drop unnecessary columns
-df.drop(['Case Number', 'Issue Summary', 'Account Name'], axis=1,
-        inplace=True)
-
-# Convert the Opened Date column to datetime
-df['Opened Date'] = pd.to_datetime(df['Opened Date'])
+df = pd.read_csv('Opened_Cases_RR_AllTime.csv',   # file to read
+                 parse_dates=['Opened Date'],  # columns to parse as dates
+                 usecols=['Opened Date'])
 
 # Sort them by date
 df.sort_values(by=['Opened Date'], inplace=True, ascending=True)
 # Convert the Opened Date to a Day of Week
-df['Day of Week'] = df.loc(df['Opened Date'].dt.dayofweek <= 4)
-# df['Day of Week'] = df['Opened Date'].dt.dayofweek
+df['Day of Week'] = df['Opened Date'].dt.dayofweek
+df = df[df['Day of Week'] <= 4]
 
 # Create the # of Cases column from the Opened Date
 df['# of Cases'] = df.groupby('Opened Date')['Opened Date'].transform('count')
@@ -33,9 +28,8 @@ plt.savefig('output.png')
 df.to_csv('Opened_Cases_RR_AllTime_Modified.csv', encoding='utf-8', index=False)
 
 # Random debugging shit
-pd.option_context('display.max_rows', None)
+pd.option_context('display.max_rows', None, 'display.max_columns', None)
 print(df)
-print(len(df.index))
 
 # Gotta show it in the IDE!
 plt.show()
