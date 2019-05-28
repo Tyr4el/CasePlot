@@ -15,6 +15,7 @@ start_date = min(df['Opened Date'])
 
 # Calculate the days since the start date for each row
 df["Days Since Start Date"] = df['Opened Date'] - start_date
+# TODO: This doesn't work
 df["Days Since Start Date"] = df["Days Since Start Date"].days
 # Convert the Opened Date to a Day of Week
 df['Day of Week'] = df['Opened Date'].dt.dayofweek
