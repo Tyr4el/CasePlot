@@ -27,9 +27,11 @@ df['# of Cases'] = df.groupby('Opened Date')['Opened Date'].transform('count')
 df.drop_duplicates('Opened Date', inplace=True)
 
 # Let's see what it looks like and plot it
-df.plot(x='Opened Date', y='# of Cases', figsize=(48, 8))
+plot1 = df.plot(x='Opened Date', y='# of Cases')
+plot2 = df.plot(x='Days Since Start Date', y='# of Cases', kind='scatter')
 # Save it
-plt.savefig('output.png')
+plot1.savefig('output.png')
+plot2.savefig('output_scatter.png')
 
 # Save the new CSV
 df.to_csv('Opened_Cases_RR_AllTime_Modified.csv', encoding='utf-8', index=False)
@@ -39,4 +41,7 @@ pd.option_context('display.max_rows', None, 'display.max_columns', None)
 print(df)
 
 # Gotta show it in the IDE!
-plt.show()
+plot1.show()
+plot2.show()
+
+print(df.columns)
